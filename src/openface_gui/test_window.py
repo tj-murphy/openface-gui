@@ -11,18 +11,24 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("My Window")
 
-        button = QPushButton("Press Me!")
-        button.setCheckable(True)
-        button.clicked.connect(self.fn_button_clicked)
+        self.is_button_checked = True
+
+        self.button = QPushButton("Press Me!")
+        self.button.setCheckable(True)
+        self.button.released.connect(self.fn_button_released)
+        self.button.setChecked(self.is_button_checked)
 
         self.setFixedSize(QSize(400, 300)) 
         self.setMinimumSize(QSize(400, 300))
         self.setMaximumSize(QSize(800, 600))
 
-        self.setCentralWidget(button)   # Central widget
+        self.setCentralWidget(self.button)   # Central widget
     
-    def fn_button_clicked(self):
-        print("Clicked!")
+    
+    # Get widget state when it changes
+    def fn_button_released(self):
+        self.is_button_checked = self.button.isChecked()
+        print(self.is_button_checked)
 
 
 
